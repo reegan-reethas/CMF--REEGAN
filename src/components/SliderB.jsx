@@ -2,28 +2,15 @@ import { useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 
-const SliderB = ({ sliderCategoryB }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const sliderBG = sliderCategoryB[currentIndex].backgroundColor;
-  const sliderTitle = sliderCategoryB[currentIndex].heading;
-
-  const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide
-      ? sliderCategoryB.length - 1
-      : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === sliderCategoryB.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
-  };
+const SliderB = ({
+  sliderCategoryB,
+  indexSliderB,
+  prevSlide,
+  nextSlide,
+  goToSlide,
+}) => {
+  const sliderBG = sliderCategoryB[indexSliderB].backgroundColor;
+  const sliderTitle = sliderCategoryB[indexSliderB].heading;
 
   return (
     <div className="max-w-[1400px] h-[480px] w-full m-auto py-6 px-4 relative group">
@@ -53,7 +40,7 @@ const SliderB = ({ sliderCategoryB }) => {
             key={slideIndex}
             onClick={() => goToSlide(slideIndex)}
             className={`text-2xl cursor-pointer rounded-full duration-500 ${
-              currentIndex === slideIndex ? "active [&.active]:bg-gray-400" : ""
+              indexSliderB === slideIndex ? "active [&.active]:bg-gray-400" : ""
             }`}
           >
             <RxDotFilled />

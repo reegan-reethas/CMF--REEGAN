@@ -7,7 +7,8 @@ const Slider = () => {
   const localStorageSlider =
     JSON.parse(localStorage.getItem("state")) || "Category A";
   const [activeSlider, setActiveSlider] = useState(localStorageSlider);
-
+  const [indexSliderA, setIndexSliderA] = useState(0);
+  const [indexSliderB, setIndexSliderB] = useState(0);
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(activeSlider));
   }, [activeSlider]);
@@ -17,6 +18,42 @@ const Slider = () => {
 
   const filterSliderCategory = (sliderCategory) => {
     setActiveSlider(sliderCategory);
+  };
+
+  const prevSlide = (prevSliderA) => {
+    if (prevSliderA === "prevSliderA") {
+      const isFirstSlide = indexSliderA === 0;
+      const newIndex = isFirstSlide
+        ? sliderCategoryA.length - 1
+        : indexSliderA - 1;
+      setIndexSliderA(newIndex);
+    } else {
+      const isFirstSlide = indexSliderB === 0;
+      const newIndex = isFirstSlide
+        ? sliderCategoryB.length - 1
+        : indexSliderB - 1;
+      setIndexSliderB(newIndex);
+    }
+  };
+
+  const nextSlide = (nextSliderA) => {
+    if (nextSliderA === "nextSliderA") {
+      const isLastSlide = indexSliderA === sliderCategoryA.length - 1;
+      const newIndex = isLastSlide ? 0 : indexSliderA + 1;
+      setIndexSliderA(newIndex);
+    } else {
+      const isLastSlide = indexSliderB === sliderCategoryB.length - 1;
+      const newIndex = isLastSlide ? 0 : indexSliderB + 1;
+      setIndexSliderB(newIndex);
+    }
+  };
+
+  const goToSlide = (slideIndex, sliderId) => {
+    if (sliderId <= 3) {
+      setIndexSliderA(slideIndex);
+    } else {
+      setIndexSliderB(slideIndex);
+    }
   };
 
   return (
@@ -48,9 +85,21 @@ const Slider = () => {
       </div>
       {/* Show Active Slider */}
       {activeSlider === "Category A" ? (
-        <SliderA sliderCategoryA={sliderCategoryA} />
+        <SliderA
+          sliderCategoryA={sliderCategoryA}
+          indexSliderA={indexSliderA}
+          prevSlide={prevSlide}
+          nextSlide={nextSlide}
+          goToSlide={goToSlide}
+        />
       ) : (
-        <SliderB sliderCategoryB={sliderCategoryB} />
+        <SliderB
+          sliderCategoryB={sliderCategoryB}
+          indexSliderB={indexSliderB}
+          prevSlide={prevSlide}
+          nextSlide={nextSlide}
+          goToSlide={goToSlide}
+        />
       )}
     </>
   );
