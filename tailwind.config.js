@@ -5,4 +5,9 @@ export default {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    textOpacity: false,
+    backgroundOpacity: false,
+    borderOpacity: false,
+  },
 };

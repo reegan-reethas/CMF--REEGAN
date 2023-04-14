@@ -65,27 +65,27 @@ const Slider = () => {
   return (
     <>
       {/* Button Group */}
-      <div className="md:container md:mx-auto pt-6">
+      <div className="grid h-screen place-items-center md:container md:mx-auto pt-6">
         <div className="flex items-center justify-center space-x-4">
           <button
-            className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
+            className={`bg-blue-500 hover:bg-blue-700 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
               activeSlider === "Category A"
-                ? "active [&.active]:bg-gray-400"
+                ? "active [&.active]:bg-blue-700"
                 : ""
             }  `}
             onClick={() => filterSliderCategory("Category A")}
           >
-            Category A
+            <span className="text-white"> Category A</span>
           </button>
           <button
-            className={`bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
+            className={`bg-teal-500 hover:bg-teal-700 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
               activeSlider === "Category B"
-                ? "active [&.active]:bg-gray-400"
+                ? "active [&.active]:bg-teal-700"
                 : ""
             }  `}
             onClick={() => filterSliderCategory("Category B")}
           >
-            Category B
+            <span className="text-white"> Category B</span>
           </button>
         </div>
       </div>

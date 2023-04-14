@@ -3,12 +3,8 @@ import Slider from "./components/Slider";
 import { SliderData } from "./data/SliderData";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const { data } = SliderData;
-
   return (
-    <div className="App">
+    <div className="App h-screen bg-slate-300">
       <Slider />
     </div>
   );
