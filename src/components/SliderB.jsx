@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 
@@ -9,8 +8,8 @@ const SliderB = ({
   nextSlide,
   goToSlide,
 }) => {
-  const sliderBG = sliderCategoryB[indexSliderB].backgroundColor;
-  const sliderTitle = sliderCategoryB[indexSliderB].heading;
+  const sliderBG = sliderCategoryB.slider[indexSliderB].backgroundColor;
+  const sliderTitle = sliderCategoryB.slider[indexSliderB].heading;
 
   return (
     <div className="max-w-[1400px] h-[480px] w-full m-auto py-6 px-4 relative group">
@@ -35,7 +34,7 @@ const SliderB = ({
       </div>
       {/* Carousel Navaigator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center py-2">
-        {sliderCategoryB.map((slide, slideIndex) => (
+        {sliderCategoryB.slider.map((slide, slideIndex) => (
           <div
             key={slideIndex}
             onClick={() => goToSlide(slideIndex)}

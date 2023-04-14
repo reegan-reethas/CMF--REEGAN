@@ -13,45 +13,51 @@ const Slider = () => {
     localStorage.setItem("state", JSON.stringify(activeSlider));
   }, [activeSlider]);
 
-  const sliderCategoryA = SliderData.data[0].slider || [];
-  const sliderCategoryB = SliderData.data[1].slider || [];
+  const sliderCategoryA = SliderData.data[0] || {};
+  const sliderCategoryB = SliderData.data[1] || {};
 
   const filterSliderCategory = (sliderCategory) => {
     setActiveSlider(sliderCategory);
   };
 
   const prevSlide = (prevSliderA) => {
-    if (prevSliderA === "prevSliderA") {
+    if (sliderCategoryA.category === "a") {
       const isFirstSlide = indexSliderA === 0;
       const newIndex = isFirstSlide
-        ? sliderCategoryA.length - 1
+        ? sliderCategoryA.slider.length - 1
         : indexSliderA - 1;
       setIndexSliderA(newIndex);
-    } else {
+    }
+
+    if (sliderCategoryB.category === "b") {
       const isFirstSlide = indexSliderB === 0;
       const newIndex = isFirstSlide
-        ? sliderCategoryB.length - 1
+        ? sliderCategoryB.slider.length - 1
         : indexSliderB - 1;
       setIndexSliderB(newIndex);
     }
   };
 
-  const nextSlide = (nextSliderA) => {
-    if (nextSliderA === "nextSliderA") {
-      const isLastSlide = indexSliderA === sliderCategoryA.length - 1;
+  const nextSlide = () => {
+    if (sliderCategoryA.category === "a") {
+      const isLastSlide = indexSliderA === sliderCategoryA.slider.length - 1;
       const newIndex = isLastSlide ? 0 : indexSliderA + 1;
       setIndexSliderA(newIndex);
-    } else {
-      const isLastSlide = indexSliderB === sliderCategoryB.length - 1;
+    }
+
+    if (sliderCategoryB.category === "b") {
+      const isLastSlide = indexSliderB === sliderCategoryB.slider.length - 1;
       const newIndex = isLastSlide ? 0 : indexSliderB + 1;
       setIndexSliderB(newIndex);
     }
   };
 
-  const goToSlide = (slideIndex, sliderId) => {
-    if (sliderId <= 3) {
+  const goToSlide = (slideIndex) => {
+    if (sliderCategoryA.category === "a") {
       setIndexSliderA(slideIndex);
-    } else {
+    }
+
+    if (sliderCategoryB.category === "b") {
       setIndexSliderB(slideIndex);
     }
   };
