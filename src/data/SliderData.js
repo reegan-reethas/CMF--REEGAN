@@ -21,7 +21,7 @@ export const SliderData = {
           backgroundColor: "#14B8A6",
         },
       ],
-      category: "a",
+      category: "category-a",
       id: 1,
     },
     {
@@ -45,7 +45,7 @@ export const SliderData = {
           backgroundColor: "#7DD3FC",
         },
       ],
-      category: "b",
+      category: "category-b",
       id: 2,
     },
   ],

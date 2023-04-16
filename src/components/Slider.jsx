@@ -2,26 +2,24 @@ import { useEffect, useState } from "react";
 import { SliderData } from "../data/SliderData";
 import SliderB from "./SliderB";
 import SliderA from "./SliderA";
+import { useParams } from "react-router-dom";
 
 const Slider = () => {
-  const localStorageSlider =
-    JSON.parse(localStorage.getItem("state")) || "Category A";
-  const [activeSlider, setActiveSlider] = useState(localStorageSlider);
+  const { URL__Params__Category } = useParams();
   const [indexSliderA, setIndexSliderA] = useState(0);
   const [indexSliderB, setIndexSliderB] = useState(0);
   useEffect(() => {
-    localStorage.setItem("state", JSON.stringify(activeSlider));
-  }, [activeSlider]);
+    localStorage.setItem(
+      "LOCAL__STORAGE__SLIDER__STATE",
+      JSON.stringify(URL__Params__Category)
+    );
+  }, []);
 
   const sliderCategoryA = SliderData.data[0] || {};
   const sliderCategoryB = SliderData.data[1] || {};
 
-  const filterSliderCategory = (sliderCategory) => {
-    setActiveSlider(sliderCategory);
-  };
-
   const prevSlide = (prevSliderA) => {
-    if (sliderCategoryA.category === "a") {
+    if (sliderCategoryA.category === SliderData.data[0].category) {
       const isFirstSlide = indexSliderA === 0;
       const newIndex = isFirstSlide
         ? sliderCategoryA.slider.length - 1
@@ -29,7 +27,7 @@ const Slider = () => {
       setIndexSliderA(newIndex);
     }
 
-    if (sliderCategoryB.category === "b") {
+    if (sliderCategoryB.category === SliderData.data[1].category) {
       const isFirstSlide = indexSliderB === 0;
       const newIndex = isFirstSlide
         ? sliderCategoryB.slider.length - 1
@@ -39,13 +37,13 @@ const Slider = () => {
   };
 
   const nextSlide = () => {
-    if (sliderCategoryA.category === "a") {
+    if (sliderCategoryA.category === SliderData.data[0].category) {
       const isLastSlide = indexSliderA === sliderCategoryA.slider.length - 1;
       const newIndex = isLastSlide ? 0 : indexSliderA + 1;
       setIndexSliderA(newIndex);
     }
 
-    if (sliderCategoryB.category === "b") {
+    if (sliderCategoryB.category === SliderData.data[1].category) {
       const isLastSlide = indexSliderB === sliderCategoryB.slider.length - 1;
       const newIndex = isLastSlide ? 0 : indexSliderB + 1;
       setIndexSliderB(newIndex);
@@ -53,44 +51,19 @@ const Slider = () => {
   };
 
   const goToSlide = (slideIndex) => {
-    if (sliderCategoryA.category === "a") {
+    if (sliderCategoryA.category === SliderData.data[0].category) {
       setIndexSliderA(slideIndex);
     }
 
-    if (sliderCategoryB.category === "b") {
+    if (sliderCategoryB.category === SliderData.data[1].category) {
       setIndexSliderB(slideIndex);
     }
   };
 
   return (
     <>
-      {/* Button Group */}
-      <div className="grid h-screen place-items-center md:container md:mx-auto pt-6">
-        <div className="flex items-center justify-center space-x-4">
-          <button
-            className={`bg-blue-500 hover:bg-blue-700 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
-              activeSlider === "Category A"
-                ? "active [&.active]:bg-blue-700"
-                : ""
-            }  `}
-            onClick={() => filterSliderCategory("Category A")}
-          >
-            <span className="text-white"> Category A</span>
-          </button>
-          <button
-            className={`bg-teal-500 hover:bg-teal-700 text-gray-800 font-bold py-2 px-4  duration-500 rounded-lg ${
-              activeSlider === "Category B"
-                ? "active [&.active]:bg-teal-700"
-                : ""
-            }  `}
-            onClick={() => filterSliderCategory("Category B")}
-          >
-            <span className="text-white"> Category B</span>
-          </button>
-        </div>
-      </div>
       {/* Show Active Slider */}
-      {activeSlider === "Category A" ? (
+      {sliderCategoryA.category === URL__Params__Category && (
         <SliderA
           sliderCategoryA={sliderCategoryA}
           indexSliderA={indexSliderA}
@@ -98,7 +71,9 @@ const Slider = () => {
           nextSlide={nextSlide}
           goToSlide={goToSlide}
         />
-      ) : (
+      )}
+
+      {sliderCategoryB.category === URL__Params__Category && (
         <SliderB
           sliderCategoryB={sliderCategoryB}
           indexSliderB={indexSliderB}

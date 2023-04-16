@@ -10,7 +10,7 @@ The project created with React.js + Vite.
 
 _npm create vite@latest your-project-name -- --template react_
 
-Additional dependencies are Tailwind & React Icons.
+Additional dependencies are Tailwind, React Router & React Icons.
 
 ### **Components**
 - Creates two Slider components like Slider A & Slider B
